@@ -141,7 +141,6 @@
           <h2 class="title is-3">Seeing Culture: A Benchmark for Visual Reasoning and Grounding</h2>
           <div class="content has-text-justified">
               <img src="static/images/teaser.png" style="width: 100%;"/>
-              <h2 class="title is-3">Abstract</h2>
               <p>
                 Multimodal vision-language models (VLMs) have made substantial progress in various tasks that require a combined understanding of visual and textual content, particularly in cultural understanding tasks, with the emergence of new cultural datasets. However, these datasets frequently fall short of providing cultural reasoning while underrepresenting many cultures.
                 In this paper, we introduce the Seeing Culture Benchmark (SCB), focusing on cultural reasoning with a novel approach that requires VLMs to reason on culturally rich images in two stages: i) selecting the correct visual option with multiple-choice visual question answering (VQA), and ii) segmenting the relevant cultural artifact as evidence of reasoning. Visual options in the first stage are systematically organized into three types: those originating from the same country, those from different countries, or a mixed group. Notably, all options are derived from a singular category for each type. Progression to the second stage occurs only after a correct visual option is chosen. 
@@ -154,25 +153,6 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 1rem;">
-  <div class="container" style="margin-bottom: 0;">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Multimodal vision-language models (VLMs) have made substantial progress in various tasks that require a combined understanding of visual and textual content, particularly in cultural understanding tasks, with the emergence of new cultural datasets. However, these datasets frequently fall short of providing cultural reasoning while underrepresenting many cultures.
-            In this paper, we introduce the Seeing Culture Benchmark (SCB), focusing on cultural reasoning with a novel approach that requires VLMs to reason on culturally rich images in two stages: i) selecting the correct visual option with multiple-choice visual question answering (VQA), and ii) segmenting the relevant cultural artifact as evidence of reasoning. Visual options in the first stage are systematically organized into three types: those originating from the same country, those from different countries, or a mixed group. Notably, all options are derived from a singular category for each type. Progression to the second stage occurs only after a correct visual option is chosen. 
-            The SCB benchmark comprises 1,065 images that capture 138 cultural artifacts across five categories from seven Southeast Asia countries, whose diverse cultures are often overlooked, accompanied by 3,178 questions, of which 1,093 are unique and meticulously curated by human annotators. 
-            Our evaluation of various VLMs reveals the complexities involved in cross-modal cultural reasoning and highlights the disparity between visual reasoning and spatial grounding in culturally nuanced scenarios. The SCB serves as a crucial benchmark for identifying these shortcomings, thereby guiding future developments in the field of cultural reasoning.
-          </p>
-        </div>
-      </div>
-    </div>
-</div>
-</section>
-
 <section class="section">
   <div class="container">
       <div class="columns is-centered has-text-centered">
@@ -180,11 +160,14 @@
           <h2 class="title is-3">Dataset Sample</h2>
           <div class="content has-text-justified">
               <div class="content has-text-centered">
-                <img src="static/images/dataset_sample1.png" style="width: 95%;"/>
+                <img src="static/images/dataset_sample1.png" style="width: 100%;"/>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dataset_sample2.png" style="width: 95%;"/>
+                <img src="static/images/dataset_sample2.png" style="width: 100%;"/>
               </div>
+              <p>
+                The presented collection of images from our SCB encompasses visual representations of cultural concepts from seven countries, categorized across five dimensions: music, game, dance, celebration, and wedding. These images exhibit either a variety of cultural artifacts situated in diverse contexts (e.g., the depiction of the \textit{balinese legong dance} showcases multiple characters, two \textit{princesses rangkesari}, and one \textit{condong}, with corresponding questions) or integrated distractors in addition to the primary concept (e.g., the image featuring the \textit{banduria}, which displays Spanish guitars on the right side while the \textit{bandurias} are positioned on the left).
+              </p>
           </div>
         </div>
       </div>
@@ -198,13 +181,13 @@
           <h2 class="title is-3">Data Analysis</h2>
           <div class="content has-text-justified">
               <div class="content has-text-centered">
-                <img src="static/images/word_cloud.png" style="width: 95%;"/>
+                <img src="static/images/word_cloud.png" style="width: 100%;"/>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dist_country.png" style="width: 95%;"/>
+                <img src="static/images/dist_country.png" style="width: 100%;"/>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dist_category.png" style="width: 95%;"/>
+                <img src="static/images/dist_category.png" style="width: 100%;"/>
               </div>
           </div>
         </div>
@@ -219,10 +202,10 @@
           <h2 class="title is-3">Quantitative Results</h2>
           <div class="content has-text-justified">
             <div class="content has-text-centered">
-              <img src="static/images/res_table.png" style="width: 90%;"/>
+              <img src="static/images/res_table.png" style="width: 100%;"/>
             </div>
             <div class="content has-text-centered">
-              <img src="static/images/res_radar.png" style="width: 90%;"/>
+              <img src="static/images/res_radar.png" style="width: 100%;"/>
             </div>
           </div>
         </div>
@@ -237,7 +220,7 @@
           <h2 class="title is-3">Qualitative Results</h2>
           <div class="content has-text-justified">
             <div class="content has-text-centered">
-              <img src="static/images/qualitative.png" style="width: 90%;"/>
+              <img src="static/images/qualitative.png" style="width: 100%;"/>
             </div>
           </div>
         </div>
