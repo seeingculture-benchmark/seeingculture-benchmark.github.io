@@ -196,86 +196,182 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 1rem;">
   <div class="container">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-          <h2 class="title is-3">Data Analysis</h2>
-          <div class="content has-text-justified">
-            <div id="stats-image" class="image stats-image">  
-              <div class="content has-text-centered">
-                <img src="static/images/word_cloud.png" style="width: 95%;"/> 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
+    
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <!-- <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+        <div class="content">
+          <p class="mt-3">Accuracy scores on the VideoVista Dataset.</p>
+          <p> <b>Unders.</b>(Video Understanding Task); <b>Reason.</b>(Video Reasoning Task)</p>
 
-<section class="section">
-  <div class="container">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-          <div class="content has-text-justified">
-            <div id="stats-image" class="image stats-image">  
-              <div class="content has-text-centered">
-                <img src="static/images/dist_country.png" style="width: 95%;"/> 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
+          <div id="leaderboard"></div>
 
-<section class="section">
-  <div class="container">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-          <div class="content has-text-justified">
-            <div id="stats-image" class="image stats-image">  
-              <div class="content has-text-centered">
-                <img src="static/images/dist_category.png" style="width: 95%;"/> 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
+        </div> -->
 
-<section class="section">
-  <div class="container">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-          <h2 class="title is-3">Dataset analysis</h2>
-          <div class="content has-text-justified">
-            <div id="stats-image" class="image stats-image">  
-              <div class="content has-text-centered">
-                <img src="static/images/word_cloud.png" style="width: 95%;"/> 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-</section>
+        <h2 class="title is-3" id="leaderboard">Leaderboard on VideoVista-CulturalLingo</h2>
+        <div class="content">
+          <p class="mt-3">Accuracy scores on the VideoVista-CulturalLingo Dataset. </p>
+          <p> <b>Overall</b>(Average Score Across All Tasks)  </p>
+          <p> <b>Event</b>(Score in Event Task) ; <b>Object</b>(Score in Object Task) ; <b>Culture</b>(Score in Culture Task) ; <b>Science</b>(Score in Science Task)</p>
 
-<section class="section">
-  <div class="container">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths" style="width: 100%;">
-          <h2 class="title is-3">Dataset analysis</h2>
-          <div class="content has-text-justified">
-            <div id="stats-image" class="image stats-image">  
-              <div class="content has-text-centered">
-                <img src="static/images/word_cloud.png" style="width: 95%;"/> 
-              </div>
-            </div>
+          <div class="legend-container" style="margin-bottom: 15px; text-align: center; display: flex; justify-content: center; align-items: center;">
+            <div style="display: inline-block; width: 20px; height: 20px; background-color: #e6f3ff; border: 1px solid #bbd6f7; margin-right: 8px;"></div>
+            <span>Proprietary LMMs</span>
+            
+            <div style="display: inline-block; width: 20px; height: 20px; background-color: #f0f5e6; border: 1px solid #c5d8b3; margin-right: 8px; margin-left: 25px;"></div>
+            <span>Open-source LMMs</span>
           </div>
+
+          <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+              overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+              font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-zd42{font-family:"Times New Roman", Times, serif !important;text-align:left;vertical-align:top}
+            .tg .tg-f6o3{font-family:"Times New Roman", Times, serif !important;font-weight:bold;text-align:center;vertical-align:top}
+            .tg .tg-adin{font-family:"Times New Roman", Times, serif !important;font-weight:bold;text-align:left;vertical-align:top}
+            .tg .tg-f1yk{font-family:"Times New Roman", Times, serif !important;text-align:center;vertical-align:top}
+            </style>
+            <table class="tg"><thead>
+              <tr>
+                <th class="tg-adin" rowspan="2"><br>Model</th>
+                <th class="tg-f6o3" colspan="2">Type 1</th>
+                <th class="tg-f6o3" colspan="2">Type 2</th>
+                <th class="tg-f6o3" colspan="2">Type 3</th>
+                <th class="tg-f6o3" colspan="2">Overall</th>
+              </tr>
+              <tr>
+                <th class="tg-f6o3">Accuracy</th>
+                <th class="tg-f6o3">Mean IoU</th>
+                <th class="tg-f6o3">Accuracy</th>
+                <th class="tg-f6o3">Mean IoU</th>
+                <th class="tg-f6o3">Accuracy</th>
+                <th class="tg-f6o3">Mean IoU</th>
+                <th class="tg-f6o3">Accuracy</th>
+                <th class="tg-f6o3">Mean IoU</th>
+              </tr></thead>
+            <tbody>
+              <tr>
+                <td class="tg-zd42">InstructBLIP</td>
+                <td class="tg-f1yk">11.07</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">10.31</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">11.04</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">10.86</td>
+                <td class="tg-f1yk">-</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">Idefics2</td>
+                <td class="tg-f1yk">13.21</td>
+                <td class="tg-f1yk">0.19</td>
+                <td class="tg-f1yk">11.03</td>
+                <td class="tg-f1yk">0.05</td>
+                <td class="tg-f1yk">12.30</td>
+                <td class="tg-f1yk">0.18</td>
+                <td class="tg-f1yk">12.21</td>
+                <td class="tg-f1yk">0.15</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">LLama 3.2</td>
+                <td class="tg-f1yk">23.57</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">25.66</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">23.80</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">24.23</td>
+                <td class="tg-f1yk">-</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">LLaVa-OneVision</td>
+                <td class="tg-f1yk">26.43</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">25.18</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">23.47</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">24.70</td>
+                <td class="tg-f1yk">-</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">MiniCPM</td>
+                <td class="tg-f1yk">28.33</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">34.65</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">32.85</td>
+                <td class="tg-f1yk">-</td>
+                <td class="tg-f1yk">32.13</td>
+                <td class="tg-f1yk">-</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">InternVL2.5</td>
+                <td class="tg-f1yk">30.83</td>
+                <td class="tg-f1yk">28.37</td>
+                <td class="tg-f1yk">30.34</td>
+                <td class="tg-f1yk">28.88</td>
+                <td class="tg-f1yk">32.18</td>
+                <td class="tg-f1yk">28.49</td>
+                <td class="tg-f1yk">31.34</td>
+                <td class="tg-f1yk">28.56</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">Qwen2.5-VL</td>
+                <td class="tg-f1yk">44.17</td>
+                <td class="tg-f6o3">44.90</td>
+                <td class="tg-f1yk">61.51</td>
+                <td class="tg-f6o3">48.22</td>
+                <td class="tg-f1yk">54.85</td>
+                <td class="tg-f6o3">47.59</td>
+                <td class="tg-f1yk">53.78</td>
+                <td class="tg-f6o3">47.20</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">GPT-4.1</td>
+                <td class="tg-f1yk">68.33</td>
+                <td class="tg-f1yk">13.31</td>
+                <td class="tg-f1yk">90.17</td>
+                <td class="tg-f1yk">14.32</td>
+                <td class="tg-f1yk">85.04</td>
+                <td class="tg-f1yk">13.60</td>
+                <td class="tg-f1yk">81.97</td>
+                <td class="tg-f1yk">13.74</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">Gemini 2.5 Pro</td>
+                <td class="tg-f1yk">71.07</td>
+                <td class="tg-f1yk">16.56</td>
+                <td class="tg-f1yk">90.17</td>
+                <td class="tg-f1yk">16.67</td>
+                <td class="tg-f1yk">85.44</td>
+                <td class="tg-f1yk">15.79</td>
+                <td class="tg-f1yk">82.88</td>
+                <td class="tg-f1yk">16.22</td>
+              </tr>
+              <tr>
+                <td class="tg-zd42">GPT-o3</td>
+                <td class="tg-f6o3">73.69</td>
+                <td class="tg-f1yk">31.10</td>
+                <td class="tg-f6o3">91.13</td>
+                <td class="tg-f1yk">32.50</td>
+                <td class="tg-f6o3">88.23</td>
+                <td class="tg-f1yk">31.69</td>
+                <td class="tg-f6o3">85.15</td>
+                <td class="tg-f1yk">31.78</td>
+              </tr>
+            </tbody></table>
+      
+
         </div>
+
       </div>
+    </div>
+
   </div>
 </section>
 
