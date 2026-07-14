@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Evaluating reasoning of vision-language models in cultural contexts via MCQ and visual grounding">
-  <meta name="keywords" content="Seeing Culture, Visual Reasoning, Grounding">
+        content="Seeing Culture Benchmark (EMNLP 2025): 1,065 images, 138 cultural artifacts from 7 Southeast Asian countries. VLMs must answer culturally grounded questions, then segment the artifact as evidence. Leaderboard and dataset explorer.">
+  <meta name="keywords" content="Seeing Culture, Visual Reasoning, Grounding, Cultural Benchmark, Southeast Asia, VLM, EMNLP 2025">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> Seeing Culture: A Benchmark for Visual Reasoning and Grounding</title>
+
+  <link rel="canonical" href="https://seeingculture-benchmark.github.io/">
+  <meta property="og:title" content="Seeing Culture: A Benchmark for Visual Reasoning and Grounding">
+  <meta property="og:description" content="EMNLP 2025 benchmark: VLMs answer culturally grounded questions about Southeast Asia, then segment the artifact as visual evidence. Leaderboard, dataset, and explorer.">
+  <meta property="og:url" content="https://seeingculture-benchmark.github.io/">
+  <meta property="og:image" content="https://seeingculture-benchmark.github.io/static/images/og-teaser.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Seeing Culture: A Benchmark for Visual Reasoning and Grounding">
+  <meta name="twitter:description" content="EMNLP 2025 benchmark: VLMs answer culturally grounded questions about Southeast Asia, then segment the artifact as visual evidence.">
+  <meta name="twitter:image" content="https://seeingculture-benchmark.github.io/static/images/og-teaser.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Seeing Culture Benchmark",
+    "alternateName": "SCB",
+    "description": "A benchmark for visual reasoning and grounding in cultural context: 1,065 images of 138 cultural artifacts across five categories from seven Southeast Asian countries, with 3,178 multiple-choice questions and human-drawn segmentation masks. Models must first answer a culturally grounded question, then segment the relevant artifact as evidence of reasoning. Published at EMNLP 2025.",
+    "url": "https://seeingculture-benchmark.github.io/",
+    "sameAs": [
+      "https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark",
+      "https://aclanthology.org/2025.emnlp-main.1131/",
+      "https://arxiv.org/abs/2509.16517"
+    ],
+    "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "isAccessibleForFree": true,
+    "keywords": ["vision-language models", "cultural reasoning", "visual grounding", "Southeast Asia", "benchmark", "VQA", "segmentation"],
+    "creator": [
+      {"@type": "Person", "name": "Burak Satar", "url": "https://buraksatar.github.io/"},
+      {"@type": "Person", "name": "Zhixin Ma"},
+      {"@type": "Person", "name": "Patrick Amadeus Irawan"},
+      {"@type": "Person", "name": "Wilfried Ariel Mulyawan"},
+      {"@type": "Person", "name": "Jing Jiang"},
+      {"@type": "Person", "name": "Ee-Peng Lim"},
+      {"@type": "Person", "name": "Chong-Wah Ngo"}
+    ],
+    "citation": "Satar, B., Ma, Z., Irawan, P. A., Mulyawan, W. A., Jiang, J., Lim, E.-P., Ngo, C.-W. (2025). Seeing Culture: A Benchmark for Visual Reasoning and Grounding. EMNLP 2025, pages 22227-22243."
+  }
+  </script>
 
   <link rel="icon" href="./static/images/logo-sea-white.png">
 
@@ -24,21 +63,17 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/explorer-index.js"></script>
-  <script src="./static/js/question_card.js"></script>
-
-  <script src="./static/js/leaderboard_testmini.js"></script>  
-  <script src="./data/results/output_folders.js" defer></script>
-  <script src="./data/results/model_scores.js" defer></script>
-
-  <script src="./visualizer/data/data_public.js" defer></script>
+  <script src="./data/leaderboard.js" defer></script>
 </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
+    <a class="navbar-item" href="./">
+      <img src="static/images/logo-sea-white.png" alt="Seeing Culture logo" style="max-height: 2rem;">
+      <b>&nbsp;Seeing Culture</b>
+    </a>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -47,6 +82,13 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#what-is">Benchmark</a>
+      <a class="navbar-item" href="#dataset">Dataset</a>
+      <a class="navbar-item" href="#leaderboard">Leaderboard</a>
+      <a class="navbar-item" href="visualizer/explore.html">Explorer</a>
+      <a class="navbar-item" href="#submit">Submit</a>
+      <a class="navbar-item" href="#news">News</a>
+      <a class="navbar-item" href="#BibTeX">BibTeX</a>
     </div>
   </div>
 </nav>
@@ -72,26 +114,27 @@
                 <a href="https://zhixinma.github.io/">Zhixin Ma</a><sup style="color:#6fbf73;">1*</sup>,
               </span>
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=ne6qtJ0AAAAJ">Patrick A. Irawan</a><sup style="color:#6fbf73;">2</sup>,
+                <a href="https://scholar.google.com/citations?user=ne6qtJ0AAAAJ">Patrick A. Irawan</a><sup style="color:#ed4b82;">2</sup>,
               </span>
               <span class="author-block">
                 Wilfried A. Mulyawan<sup style="color:#ed4b82">2</sup>,
               </span><br>
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=hVTK2YwAAAAJ">Jing Jiang</a><sup style="color:#ffac33">1</sup>,
+                <a href="https://scholar.google.com/citations?user=hVTK2YwAAAAJ">Jing Jiang</a><sup style="color:#6fbf73;">1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=r0wOAikAAAAJ">Ee-Peng Lim</a><sup style="color:#ed4b82">1</sup>,
+                <a href="https://scholar.google.com/citations?user=r0wOAikAAAAJ">Ee-Peng Lim</a><sup style="color:#6fbf73;">1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=HM39HrUAAAAJ">Chong-Wah Ngo</a><sup style="color:#ffac33">1</sup>,
+                <a href="https://scholar.google.com/citations?user=HM39HrUAAAAJ">Chong-Wah Ngo</a><sup style="color:#6fbf73;">1</sup>
               </span>
         </div>
 
         <div class="is-size-5 publication-authors">
           <span class="author-block"><sup style="color:#6fbf73;">1</sup>Singapore Management University,</span>
           <span class="author-block"><sup style="color:#ed4b82">2</sup>Bandung Institute of Technology</span><br>
-          <span class="paper-block"><b style="color:#f41c1c">EMNLP 2025 Main Conference</b> (22.16%)</span>
+          <span class="author-block is-size-6"><sup>*</sup>Equal contribution</span><br>
+          <span class="paper-block"><b style="color:#f41c1c">EMNLP 2025 Main Conference</b> (22.16% acceptance rate)</span>
         </div>
 
         <div class="column has-text-centered">
@@ -126,8 +169,47 @@
                   <span>Dataset</span>
                 </a>
               </span>
+              <span class="link-block">
+                <a href="#leaderboard"
+                  class="button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-trophy"></i></span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="visualizer/explore.html"
+                  class="button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-search"></i></span>
+                  <span>Explorer</span>
+                </a>
+              </span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="what-is">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths" style="width: 100%;">
+        <h2 class="title is-3">What is Seeing Culture?</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li><b>The task:</b> a vision-language model first answers a culturally grounded multiple-choice question with visual options, and then it must <b>segment the cultural artifact it reasoned about</b>, providing visual evidence for its answer.</li>
+            <li><b>The coverage:</b> 1,065 images of 138 cultural artifacts across five categories (music, dance, game, wedding, celebration) from seven Southeast Asian countries, with 3,178 questions curated by human annotators and human-drawn segmentation masks.</li>
+            <li><b>Why it matters:</b> a right answer is not enough. GPT-o3 answers 91.13% of across-culture questions correctly, yet its grounding never surpasses 32.5 mean IoU. Accuracy without evidence hides how little models actually see.</li>
+          </ul>
+        </div>
+        <div class="columns is-multiline is-mobile has-text-centered" style="margin-top: 1rem;">
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">7</p><p class="heading">SEA countries</p></div>
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">5</p><p class="heading">Categories</p></div>
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">138</p><p class="heading">Cultural artifacts</p></div>
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">1,065</p><p class="heading">Images</p></div>
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">3,178</p><p class="heading">Questions</p></div>
+          <div class="column is-2-desktop is-4-mobile"><p class="title is-3">100%</p><p class="heading">Human-drawn masks</p></div>
         </div>
       </div>
     </div>
@@ -140,7 +222,7 @@
         <div class="column is-four-fifths" style="width: 100%;">
           <h2 class="title is-3">Seeing Culture: A Benchmark for Visual Reasoning and Grounding</h2>
           <div class="content has-text-justified">
-              <img src="static/images/teaser.png" style="width: 100%;"/>
+              <img src="static/images/teaser.webp" style="width: 100%;" alt="Seeing Culture Benchmark two-stage task: multiple-choice VQA followed by visual grounding"/>
               <h2 class="title is-3">Abstract</h2>
               <p>
                 Multimodal vision-language models (VLMs) have made substantial progress in various tasks that require a combined understanding of visual and textual content, particularly in cultural understanding tasks, with the emergence of new cultural datasets. However, these datasets frequently fall short of providing cultural reasoning while underrepresenting many cultures.
@@ -158,13 +240,13 @@
   <div class="container">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths" style="width: 100%;">
-          <h2 class="title is-3">Dataset Sample</h2>
+          <h2 class="title is-3" id="dataset">Dataset Sample</h2>
           <div class="content has-text-justified">
               <div class="content has-text-centered">
-                <img src="static/images/dataset_sample1.png" style="width: 100%;"/>
+                <img src="static/images/dataset_sample1.webp" style="width: 100%;" alt="Seeing Culture dataset examples across seven Southeast Asian countries" loading="lazy"/>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dataset_sample2.png" style="width: 100%;"/>
+                <img src="static/images/dataset_sample2.webp" style="width: 100%;" alt="Dataset examples with distractors and multi-character cultural scenes" loading="lazy"/>
                 <p>
                   The presented collection of images from our SCB encompasses visual representations of cultural concepts from seven countries, categorized across five dimensions: music, game, dance, celebration, and wedding. These images exhibit either a variety of cultural artifacts situated in diverse contexts (e.g., the depiction of the <i>balinese legong dance</i> showcases multiple characters, two <i>princesses rangkesari</i>, and one <i>condong</i>, with corresponding questions) or integrated distractors in addition to the primary concept (e.g., the image featuring the <i>banduria</i>, which displays Spanish guitars on the right side while the <i>bandurias</i> are positioned on the left).
                 </p>
@@ -182,16 +264,16 @@
           <h2 class="title is-3">Data Analysis</h2>
           <div class="content has-text-justified">
               <div class="content has-text-centered">
-                <img src="static/images/word_cloud.png" style="width: 100%;"/>
+                <img src="static/images/word_cloud.webp" style="width: 100%;" alt="Word clouds of question concepts across five cultural themes" loading="lazy"/>
                 <p>
                   Word clouds illustrating the concepts of 1,093 unique questions in SCB are categorized into five cultural themes: wedding, game, music, celebration, and dance. The variation in font size within these clouds reflects the frequency of concept occurrences relevant to each theme. A simplified form for better visualization.
                 </p>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dist_country.png" style="width: 100%;"/>
+                <img src="static/images/dist_country.webp" style="width: 100%;" alt="Distribution of questions and concepts by country" loading="lazy"/>
               </div>
               <div class="content has-text-centered">
-                <img src="static/images/dist_category.png" style="width: 100%;"/>
+                <img src="static/images/dist_category.webp" style="width: 100%;" alt="Distribution of questions and concepts by category" loading="lazy"/>
                 <p>
                   The figures encompass a comprehensive analysis of the distribution of unique questions, concepts, and the average length of questions, segmented by both country and category.
                 </p>
@@ -206,16 +288,37 @@
   <div class="container">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths" style="width: 100%;">
-          <h2 class="title is-3">Quantitative Results</h2>
+          <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
           <div class="content has-text-justified">
-            <div class="content has-text-centered">
-              <img src="static/images/res_table.png" style="width: 90%;"/>
-              <p>
-                Detailed performance benchmark with several VLMs on our Visual Reasoning and Grounding task. The upper section focuses on open-source VLMs, whereas the lower section pertains to closed-source models. Type 1 is defined as <i>within culture</i>, Type 2 as <i>across culture</i>, and Type 3 represents a balanced combination of both Type 1 and Type 2.
-              </p>
+            <p>
+              Two-stage zero-shot evaluation. <b>Acc</b> is multiple-choice VQA accuracy (visual options; random guess is about 25%). <b>mIoU</b> is the mean Intersection over Union of the grounded region, evaluated with bounding boxes on questions answered correctly in stage 1. Type 1 uses options from within the same culture, Type 2 across cultures, Type 3 a balanced mix. Seed results are from Table 2 of <a href="https://aclanthology.org/2025.emnlp-main.1131/">the paper</a>. A dash means the model cannot produce box or segment grounding. Click a column header to sort.
+            </p>
+            <div class="table-container">
+              <table class="table is-striped is-narrow is-hoverable js-sort-table" id="scb-leaderboard-table" style="margin-left:auto;margin-right:auto;font-size:0.85rem;">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Group</th>
+                    <th class="js-sort-number">T1 Acc</th>
+                    <th class="js-sort-number">T1 mIoU</th>
+                    <th class="js-sort-number">T2 Acc</th>
+                    <th class="js-sort-number">T2 mIoU</th>
+                    <th class="js-sort-number">T3 Acc</th>
+                    <th class="js-sort-number">T3 mIoU</th>
+                    <th class="js-sort-number">Overall Acc</th>
+                    <th class="js-sort-number">Overall mIoU</th>
+                    <th>Date</th>
+                    <th>Source</th>
+                  </tr>
+                </thead>
+                <tbody id="scb-leaderboard-body"></tbody>
+              </table>
             </div>
+            <p class="is-size-7 has-text-centered">
+              Best accuracy and best grounding disagree: GPT-o3 leads every Acc column while Qwen2.5-VL-7B leads every mIoU column. Reasoning and grounding are different skills.
+            </p>
             <div class="content has-text-centered">
-              <img src="static/images/res_radar.png" style="width: 95%;"/>
+              <img src="static/images/res_radar.webp" style="width: 95%;" alt="Radar charts of VQA accuracy by country and category" loading="lazy"/>
               <p>
                 The overall multiple-choice VQA accuracy of certain VLMs across different countries and categories.
               </p>
@@ -233,7 +336,7 @@
           <h2 class="title is-3">Qualitative Results</h2>
           <div class="content has-text-justified">
             <div class="content has-text-centered">
-              <img src="static/images/qualitative.png" style="width: 100%;"/>
+              <img src="static/images/qualitative.webp" style="width: 100%;" alt="Qualitative failure examples for multiple-choice VQA and spatial grounding" loading="lazy"/>
               <p>
                 The figure presents two examples of failures for each stage. The left side illustrates an example of multiple-choice VQA, where all VLMs fail to select the correct option. Conversely, the right side pertains to the spatial grounding, for another example. Notably, this specific output is generated by GPT-o3, which is the only VLM that accurately answers the multiple-choice VQA version of this spatial grounding question. The blue character on the far left identifies the correct segment, while GPT-o3 incorrectly selects the option on the far right.
               </p>
@@ -244,6 +347,74 @@
   </div>
 </section>
 
+
+
+<section class="section">
+  <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths" style="width: 100%;">
+          <h2 class="title is-3" id="submit">Evaluate on Seeing Culture</h2>
+          <div class="content has-text-justified">
+            <p>
+              Think your model understands culture? Prove it. Run the two-stage evaluation with the
+              <a href="https://github.com/buraksatar/seeingculture">official code</a> and the
+              <a href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">dataset</a>, then submit your results and we will add them to the leaderboard:
+            </p>
+            <ul>
+              <li><b>Email:</b> send your result JSON to <a href="mailto:buraks@smu.edu.sg">buraks@smu.edu.sg</a>, or</li>
+              <li><b>GitHub:</b> <a href="https://github.com/buraksatar/seeingculture/issues/new">open an issue</a> with the JSON attached (public record).</li>
+            </ul>
+            <p>Result JSON format:</p>
+            <pre style="font-size:0.8rem;">{
+  "model": "YourModel-7B",
+  "group": "Open",
+  "t1_acc": 0.0, "t1_miou": 0.0,
+  "t2_acc": 0.0, "t2_miou": 0.0,
+  "t3_acc": 0.0, "t3_miou": 0.0,
+  "acc": 0.0, "miou": 0.0,
+  "paper_or_repo": "https://...",
+  "contact": "you@example.org"
+}</pre>
+            <h3 class="title is-4">Task definition</h3>
+            <p>
+              <b>Input:</b> a culturally grounded question with visual options (stage 1), then the correctly chosen image and the question (stage 2).
+              <b>Output:</b> the chosen option (stage 1), then a bounding box or segment of the cultural artifact that justifies the answer (stage 2).
+              <b>Metrics:</b> multiple-choice accuracy (stage 1) and mean IoU against human-drawn masks (stage 2), zero-shot; only questions answered correctly in stage 1 advance to grounding.
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths" style="width: 100%;">
+          <h2 class="title is-3" id="news">News</h2>
+          <div class="content has-text-justified">
+            <ul>
+              <li><b>[2026-07]</b> Leaderboard and interactive dataset explorer launched on this page. External submissions are open.</li>
+              <li><b>[2025-11]</b> Seeing Culture is presented at EMNLP 2025 (Main Conference) in Suzhou, China.</li>
+              <li><b>[2025-09]</b> The dataset is released on <a href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">HuggingFace</a> and the paper on <a href="https://arxiv.org/abs/2509.16517">arXiv</a>.</li>
+            </ul>
+            <h3 class="title is-4">What's next</h3>
+            <p>
+              We are exploring broader country and category coverage, richer distractor types, and video-based cultural reasoning.
+              If you want to collaborate on culturally-aware multimodal AI or extend the benchmark to new regions,
+              <a href="https://buraksatar.github.io/meeting/">book a chat</a> or email <a href="mailto:buraks@smu.edu.sg">buraks@smu.edu.sg</a>.
+            </p>
+            <h3 class="title is-4">License</h3>
+            <p>
+              The benchmark annotations (questions, rationales, masks) are released under
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> for non-commercial research.
+              The images were collected from the internet and are not owned by the authors; copyright remains with the original sources, and each dataset entry links its source. Seeing Culture is a test-only benchmark: please do not use it for training.
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
 
 <section class="hero is-light is-small">
   <div class="hero-body has-text-centered">
@@ -274,7 +445,8 @@
             address = "Suzhou, China",
             publisher = "Association for Computational Linguistics",
             url = "https://aclanthology.org/2025.emnlp-main.1131/",
-            pages = "22238--22254",
+            doi = "10.18653/v1/2025.emnlp-main.1131",
+            pages = "22227--22243",
             ISBN = "979-8-89176-332-6",
             abstract = "Multimodal vision-language models (VLMs) have made substantial progress in various tasks that require a combined understanding of visual and textual content, particularly in cultural understanding tasks, with the emergence of new cultural datasets. However, these datasets frequently fall short of providing cultural reasoning while underrepresenting many cultures.In this paper, we introduce the Seeing Culture Benchmark (SCB), focusing on cultural reasoning with a novel approach that requires VLMs to reason on culturally rich images in two stages: i) selecting the correct visual option with multiple-choice visual question answering (VQA), and ii) segmenting the relevant cultural artifact as evidence of reasoning. Visual options in the first stage are systematically organized into three types: those originating from the same country, those from different countries, or a mixed group. Notably, all options are derived from a singular category for each type. Progression to the second stage occurs only after a correct visual option is chosen. The SCB benchmark comprises 1,065 images that capture 138 cultural artifacts across five categories from seven Southeast Asia countries, whose diverse cultures are often overlooked, accompanied by 3,178 questions, of which 1,093 are unique and meticulously curated by human annotators. Our evaluation of various VLMs reveals the complexities involved in cross-modal cultural reasoning and highlights the disparity between visual reasoning and spatial grounding in culturally nuanced scenarios. The SCB serves as a crucial benchmark for identifying these shortcomings, thereby guiding future developments in the field of cultural reasoning. https://github.com/buraksatar/SeeingCulture"
         }
@@ -284,12 +456,12 @@
 </section>
 
 <section>
-  <div class="section" id="org-banners" style="display:fle">
-    <a href="" target="_blank" rel="external">
-      <img class="center-block org-banner" src="static/images/logo-smu.svg" style="height:17em">
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.smu.edu.sg/" target="_blank" rel="external">
+      <img class="center-block org-banner" src="static/images/logo-smu.svg" style="height:17em" alt="Singapore Management University" loading="lazy">
     </a>
-    <a href="" target="blank" class="ext-link">
-      <img class="center-block org-banner" src="static/images/logo-bandung.png" style="height:12em">
+    <a href="https://itb.ac.id/" target="_blank" rel="external">
+      <img class="center-block org-banner" src="static/images/logo-bandung.png" style="height:12em" alt="Bandung Institute of Technology" loading="lazy">
     </a>
   </div>
 </section>
@@ -301,7 +473,7 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+            This website is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://mathvista.github.io/">MathVista</a>, licensed under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
@@ -320,5 +492,30 @@
   <!-- </div> -->
 </footer>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  if (typeof scb_leaderboard === "undefined") { return; }
+  var rows = scb_leaderboard.slice().sort(function(a, b) { return b.acc - a.acc; });
+  var medals = ["\uD83E\uDD47", "\uD83E\uDD48", "\uD83E\uDD49"];
+  var body = document.getElementById("scb-leaderboard-body");
+  function cell(v) { return v === null ? "\u2013" : v.toFixed(2); }
+  rows.forEach(function(r, i) {
+    var tr = document.createElement("tr");
+    var medal = i < 3 ? " " + medals[i] : "";
+    var groupTag = r.group === "Open"
+      ? '<span class="tag is-success is-light">Open</span>'
+      : '<span class="tag is-dark">Closed</span>';
+    tr.innerHTML = "<td><b>" + r.model + "</b>" + medal + "</td>"
+      + "<td>" + groupTag + "</td>"
+      + "<td>" + cell(r.t1_acc) + "</td><td>" + cell(r.t1_miou) + "</td>"
+      + "<td>" + cell(r.t2_acc) + "</td><td>" + cell(r.t2_miou) + "</td>"
+      + "<td>" + cell(r.t3_acc) + "</td><td>" + cell(r.t3_miou) + "</td>"
+      + "<td><b>" + cell(r.acc) + "</b></td><td><b>" + cell(r.miou) + "</b></td>"
+      + "<td>" + r.date + "</td>"
+      + '<td><a href="' + r.source + '">link</a></td>';
+    body.appendChild(tr);
+  });
+});
+</script>
 </body>
 </html>

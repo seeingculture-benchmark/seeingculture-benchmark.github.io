@@ -1,66 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore</title>
-    <!-- <link rel="icon" href="img/logo.png" type="image/icon type"> -->
-
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css"
-        integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/explore.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/underscore@latest/underscore-umd-min.js"></script>
-    <script src="explore.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seeing Culture Explorer</title>
+  <meta name="description" content="Browse real samples from the Seeing Culture Benchmark: culturally grounded questions and images from seven Southeast Asian countries.">
+  <link rel="canonical" href="https://seeingculture-benchmark.github.io/visualizer/explore.html">
+  <link rel="icon" href="../static/images/logo-sea-white.png">
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <style>
+    .scb-card img { width: 100%; height: 240px; object-fit: cover; border-radius: 6px 6px 0 0; }
+    .scb-card { height: 100%; display: flex; flex-direction: column; }
+    .scb-card .card-content { flex-grow: 1; }
+    .scb-chips .tag { margin-right: 0.3rem; margin-bottom: 0.3rem; }
+    .scb-question { font-weight: 600; }
+    .scb-rationale { font-size: 0.85rem; }
+  </style>
+  <script src="data/data_public.js" defer></script>
 </head>
-
 <body>
-    <div id="nav">
-        <div id="icon">
-            <!-- <img src="img/logo.png" id="nav-icon"> -->
-            <a class="nav-button" href="https://mathvista.github.io/"
-                style="margin-left: 2px; font-size: 24px">MathVista Visualizer
-            </a>
-        </div>
-        <!-- <div>
-            <a class="nav-button" href="index.html#home">Home</a>
-            <a class="nav-button" href="index.html#dataset">Dataset</a>
-            <a class="nav-button" href="index.html#download">Download</a>
-            <a class="nav-button" href="index.html#method">Method</a>
-            <a class="nav-button" href="index.html#paper">Paper</a>
-            <a class="nav-button" href="index.html#code">Code</a>
-            <a class="nav-button" href="index.html#citation">Citation</a>
-            <a class="nav-button" href="index.html#authors">Authors</a>
-            <a class="nav-button" href="index.html#contact">Contact</a>
-            <a class="nav-button" href="leaderboard.html">Leaderboard</a>
-            <a class="nav-button" href="explore.html">Explore</a>
-            <a class="nav-button" href="visualize.html">Visualize</a>
-        </div> -->
-    </div>
 
-    <button class="optionsbtn">☰</button>
-    <div class="row">
-        <div id="option-panel" class="left">
-            <a href="javascript:void(0)" class="closebtn">×</a>
-            <h3 class="opttitle">Sample Filters</h3>
-            <div class="optbox"></div>
-            <button type="button" class="pure-button pure-button-primary" id="filter-submit">Refresh data!</button>
-        </div>
-        <div id="display">
-            <!-- <br><br> -->
-            <!-- <h1>ScienceQA (Science Question Answering)</h1> -->
-            <br><br>
-            <div id="content-body">
-            </div>
-        </div>
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="../index.html">
+      <img src="../static/images/logo-sea-white.png" alt="Seeing Culture logo" style="max-height: 2rem;">
+      <b>&nbsp;Seeing Culture Explorer</b>
+    </a>
+  </div>
+  <div class="navbar-menu is-active">
+    <div class="navbar-end">
+      <a class="navbar-item" href="../index.html">Home</a>
+      <a class="navbar-item" href="../index.html#leaderboard">Leaderboard</a>
+      <a class="navbar-item" href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">Full dataset</a>
     </div>
-    <div id="dataset-import">
+  </div>
+</nav>
 
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3 has-text-centered">Explore the benchmark</h1>
+    <p class="has-text-centered" style="max-width: 720px; margin: 0 auto 1.5rem;">
+      A browsable sample from the Seeing Culture Benchmark: culturally grounded questions
+      about artifacts from seven Southeast Asian countries. The full benchmark has 1,065 images and 3,178 questions;
+      get it on <a href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">HuggingFace</a>.
+    </p>
+
+    <div class="field is-grouped is-grouped-centered is-grouped-multiline">
+      <div class="control">
+        <div class="select"><select id="filter-country"><option value="">All countries</option></select></div>
+      </div>
+      <div class="control">
+        <div class="select"><select id="filter-category"><option value="">All categories</option></select></div>
+      </div>
+      <div class="control">
+        <button class="button is-link" id="refresh-btn">Show other samples</button>
+      </div>
     </div>
+    <p class="has-text-centered is-size-7" id="pool-count"></p>
+
+    <div class="columns is-multiline" id="cards" style="margin-top: 0.5rem;"></div>
+
+    <p class="has-text-centered is-size-7" style="margin-top: 1.5rem;">
+      Images are collected from the internet and are not owned by the authors; each card links its original source.
+      Annotations are CC BY-NC-SA 4.0.
+    </p>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  if (typeof scb_data === "undefined") { return; }
+  var all = Object.values(scb_data);
+  var countrySel = document.getElementById("filter-country");
+  var categorySel = document.getElementById("filter-category");
+  var cards = document.getElementById("cards");
+  var poolCount = document.getElementById("pool-count");
+
+  function uniq(key) {
+    return Array.from(new Set(all.map(function(d) { return d[key]; }))).sort();
+  }
+  uniq("country").forEach(function(v) {
+    countrySel.insertAdjacentHTML("beforeend", '<option value="' + v + '">' + v + "</option>");
+  });
+  uniq("category").forEach(function(v) {
+    categorySel.insertAdjacentHTML("beforeend", '<option value="' + v + '">' + v + "</option>");
+  });
+
+  function esc(s) {
+    var div = document.createElement("div");
+    div.textContent = s || "";
+    return div.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function render() {
+    var pool = all.filter(function(d) {
+      return d.question
+          && (!countrySel.value || d.country === countrySel.value)
+          && (!categorySel.value || d.category === categorySel.value);
+    });
+    poolCount.textContent = pool.length + " matching samples";
+    var picks = pool.slice().sort(function() { return Math.random() - 0.5; }).slice(0, 6);
+    cards.innerHTML = "";
+    picks.forEach(function(d) {
+      cards.insertAdjacentHTML("beforeend",
+        '<div class="column is-one-third">'
+        + '<div class="card scb-card">'
+        + '<img src="' + d.image + '" alt="' + esc(d.concept) + '" loading="lazy">'
+        + '<div class="card-content">'
+        + '<div class="scb-chips">'
+        + '<span class="tag is-link is-light">' + esc(d.country) + '</span>'
+        + '<span class="tag is-warning is-light">' + esc(d.category) + '</span>'
+        + '<span class="tag is-success is-light">' + esc(d.concept) + '</span>'
+        + '</div>'
+        + '<p class="scb-question">' + esc(d.question) + '</p>'
+        + (d.rationale ? '<details class="scb-rationale"><summary>Rationale</summary><p>' + esc(d.rationale) + '</p></details>' : '')
+        + '</div>'
+        + '<footer class="card-footer">'
+        + '<a class="card-footer-item is-size-7" href="' + esc(d.source) + '">Image source</a>'
+        + (d.reference ? '<a class="card-footer-item is-size-7" href="' + esc(d.reference) + '">Reference</a>' : '')
+        + '</footer>'
+        + '</div></div>');
+    });
+  }
+
+  countrySel.addEventListener("change", render);
+  categorySel.addEventListener("change", render);
+  document.getElementById("refresh-btn").addEventListener("click", render);
+  render();
+});
+</script>
 </body>
-
 </html>
