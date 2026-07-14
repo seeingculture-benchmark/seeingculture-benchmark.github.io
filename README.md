@@ -1,21 +1,23 @@
-# MathVista
+# Seeing Culture Benchmark: project page
 
-This website is adapted from [Nerfies website](https://nerfies.github.io) and [MathVista website](https://mathvista.github.io].
+Project website for **Seeing Culture: A Benchmark for Visual Reasoning and Grounding** (EMNLP 2025 Main Conference).
 
-# Website License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+- Live site: https://seeingculture-benchmark.github.io/
+- Paper: https://aclanthology.org/2025.emnlp-main.1131/
+- Code: https://github.com/buraksatar/seeingculture
+- Dataset: https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark
 
+## Updating the leaderboard
 
-## Update the leaderboard
+Leaderboard rows live in `data/leaderboard.js`. To add an externally submitted result, append a row object there and open a pull request (or the maintainer pastes it in from an emailed result JSON). The table renders and sorts client side; no build step.
 
-```sh
-cd mathvista.github.io
-cd data/results
+## Structure
 
-python3 process_outputs.py
-python3 process_scores.py
+- `index.html`: the whole page (Bulma, no build step)
+- `visualizer/`: the interactive dataset explorer (`explore.html`), loading samples from `visualizer/data/data_public.js`
+- `static/images/`: figures (compressed WebP)
 
-git add -A
-git commit -m "Update leaderboard"
-git push
-```
+## Website license
+
+This site is adapted from the [Nerfies](https://nerfies.github.io) and [MathVista](https://mathvista.github.io) templates and is licensed under a
+[Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
