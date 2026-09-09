@@ -82,3 +82,6 @@
 .wt-mask-row img { display: block; width: 100%; border-radius: 6px; border: 1px solid var(--scb-line); }
 .wt-mask-row figcaption { font-size: 0.85rem; color: #4a4f58; margin-top: 0.45rem; text-align: center; }
 .wt-source-note { font-size: 0.8rem; color: #6a6f7a; text-align: center; margin-top: 0.9rem; }
+
+/* Inline SVG icons (the FontAwesome script is no longer loaded) */
+.svg-icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; fill: currentColor; }

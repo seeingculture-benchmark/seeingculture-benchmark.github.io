@@ -15,7 +15,8 @@ Leaderboard rows live in `data/leaderboard.js`. To add an externally submitted r
 
 - `index.html`: the whole page (Bulma, no build step)
 - `visualizer/`: the interactive dataset explorer (`explore.html`), loading samples from `visualizer/data/data_public.js`
-- `static/images/`: figures (compressed WebP)
+- `static/images/`: figures (compressed WebP). `teaser-white.png` is not used by the page but is linked by the Hugging Face dataset card and the code README; keep it.
+- Icons: inline SVG symbols at the top of `index.html`, from Font Awesome Free 5.15.1 (CC BY 4.0) and the Academicons arXiv glyph (SIL OFL 1.1); no icon script or icon font is loaded
 
 ## Website license
 
