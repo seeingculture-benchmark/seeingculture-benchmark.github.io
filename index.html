@@ -12,12 +12,12 @@
   <meta property="og:title" content="Seeing Culture: A Benchmark for Visual Reasoning and Grounding">
   <meta property="og:description" content="EMNLP 2025 benchmark: VLMs answer culturally grounded questions about Southeast Asia, then segment the artifact as visual evidence. Leaderboard, dataset, and explorer.">
   <meta property="og:url" content="https://seeingculture-benchmark.github.io/">
-  <meta property="og:image" content="https://seeingculture-benchmark.github.io/static/images/og-teaser.jpg">
+  <meta property="og:image" content="https://seeingculture-benchmark.github.io/static/images/og-card.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Seeing Culture: A Benchmark for Visual Reasoning and Grounding">
   <meta name="twitter:description" content="EMNLP 2025 benchmark: VLMs answer culturally grounded questions about Southeast Asia, then segment the artifact as visual evidence.">
-  <meta name="twitter:image" content="https://seeingculture-benchmark.github.io/static/images/og-teaser.jpg">
+  <meta name="twitter:image" content="https://seeingculture-benchmark.github.io/static/images/og-card.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,23 +47,19 @@
   }
   </script>
 
-  <link rel="icon" href="./static/images/logo-sea-white.png">
+  <link rel="icon" href="./static/images/favicon.png">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="stylesheet" href="./static/css/leaderboard.css">
+  <link rel="stylesheet" href="./static/css/scb.css?v=1">
 
   <script type="text/javascript" src="static/js/sort-table.js" defer></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/explorer-index.js"></script>
   <script src="./data/leaderboard.js" defer></script>
 </head>
 <body>
@@ -83,6 +79,7 @@
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="#what-is">Benchmark</a>
+      <a class="navbar-item" href="#walkthrough">Walkthrough</a>
       <a class="navbar-item" href="#dataset">Dataset</a>
       <a class="navbar-item" href="#leaderboard">Leaderboard</a>
       <a class="navbar-item" href="visualizer/explore.html">Explorer</a>
@@ -240,6 +237,50 @@
   </div>
 </section>
 
+<section class="section" id="walkthrough">
+  <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths" style="width: 100%;">
+          <h2 class="title is-3">The Two-Stage Task, Hands On</h2>
+          <div class="content has-text-justified">
+            <p class="has-text-centered">
+              A published example, Figure 9 of the paper. It is a <b>Type 1</b> question: all four options are Indonesian wedding artifacts, the arrangement the models find hardest. Pick an image to reveal the answer.
+            </p>
+            <div class="walkthrough">
+              <p class="wt-stage"><b>Stage 1</b>&nbsp;Multiple-choice VQA with visual options</p>
+              <div class="wt-question">Which image indicates the traditional Indonesian wedding artifact that is associated with the symbol of a new life beginning permitted by ancestors?</div>
+              <div class="wt-grid" id="wt-options">
+                <button class="wt-tile" data-ok="0" data-letter="A"><span class="tile-label"><b>A</b></span><span class="tile-media"><img src="static/images/wt_a.webp" alt="Option A: a wedding couple among guests" loading="lazy"></span></button>
+                <button class="wt-tile" data-ok="0" data-letter="B"><span class="tile-label"><b>B</b></span><span class="tile-media"><img src="static/images/wt_b.webp" alt="Option B: a street with decorated poles" loading="lazy"></span></button>
+                <button class="wt-tile" data-ok="1" data-letter="C"><span class="tile-label"><b>C</b></span><span class="tile-media"><img src="static/images/wt_c.webp" alt="Option C: a framed painting being handed over at a ceremony" loading="lazy"></span></button>
+                <button class="wt-tile" data-ok="0" data-letter="D"><span class="tile-label"><b>D</b></span><span class="tile-media"><img src="static/images/wt_d.webp" alt="Option D: a bride with a bouquet" loading="lazy"></span></button>
+              </div>
+              <p class="wt-hint">The model sees the four images without letters or labels; the distractors come from the same country and category. Click an image to answer.</p>
+
+              <div class="wt-stage2" id="wt-stage2" hidden>
+                <p class="wt-stage"><b>Stage 2</b>&nbsp;Visual grounding on the correctly chosen image</p>
+                <p class="wt-verdict" id="wt-verdict"></p>
+                <div class="wt-mask-row">
+                  <figure>
+                    <img src="static/images/wt_c.webp" alt="The correct option, a lukisan pengantin, as the model receives it" loading="lazy">
+                    <figcaption>The model receives the chosen image with the same question and must return a box or segment of the artifact.</figcaption>
+                  </figure>
+                  <figure>
+                    <img src="static/images/wt_c_mask.webp" alt="The same image with the human-drawn mask of the artifact in red" loading="lazy">
+                    <figcaption>The human-drawn mask (red); the model's region is scored by IoU against it.</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+            <p class="wt-source-note">
+              Images are collected from the internet and remain with their owners: <a href="https://blog.tigadaracatering.id/wp-content/uploads/2020/04/WhatsApp-Image-2020-04-15-at-12.31.35.jpeg">A</a>, <a href="https://www.weddingku.com/blog/filosofi-janur-kuning-dalam-pernikahan-dan-tampilannya-yang-semakin-m">B (reference article)</a>, <a href="https://image.indonetwork.co.id/products/thumbs/500x500/2009/11/11/5f8bd8eded7e32fdecb288c6ef4bf28f.jpg">C</a>, <a href="https://id-test-11.slatic.net/p/527674c5c5f5d20a64fa8f3c45b15cb1.jpg">D</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
       <div class="columns is-centered has-text-centered">
@@ -360,9 +401,8 @@
           <h2 class="title is-3" id="submit">Evaluate on Seeing Culture</h2>
           <div class="content has-text-justified">
             <p>
-              Think your model understands culture? Prove it. Run the two-stage evaluation with the
-              <a href="https://github.com/buraksatar/seeingculture">official code</a> and the
-              <a href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">dataset</a>, then submit your results and we will add them to the leaderboard:
+              Think your model understands culture? Prove it. Develop on the public dev split of the
+              <a href="https://huggingface.co/datasets/Multimedia-SMU/seeingculture-benchmark">dataset</a>, email us for evaluation access (images and scoring), run the two-stage evaluation, then submit your results and we will add them to the leaderboard:
             </p>
             <ul>
               <li><b>Email:</b> send your result JSON to <a href="mailto:buraks@smu.edu.sg">buraks@smu.edu.sg</a>, or</li>
@@ -405,7 +445,7 @@
             </ul>
             <h3 class="title is-4">What's next</h3>
             <p>
-              We are exploring broader country and category coverage, richer distractor types, and video-based cultural reasoning.
+              The video-based successor, the <a href="https://culturalmoment-benchmark.github.io/">Cultural Moment Benchmark</a>, is out, and a shared task built on both benchmarks is in preparation for a workshop at ACL 2027. We are also exploring broader country and category coverage and richer distractor types.
               If you want to collaborate on culturally-aware multimodal AI or extend the benchmark to new regions,
               <a href="https://buraksatar.github.io/meeting/">book a chat</a> or email <a href="mailto:buraks@smu.edu.sg">buraks@smu.edu.sg</a>.
             </p>
@@ -423,7 +463,7 @@
 
 <section class="hero is-light is-small">
   <div class="hero-body has-text-centered">
-    <h1 class="title is-1 mathvista_other" id="citation"><span class="mathvista" style="vertical-align: middle">Citation</span></h1>
+    <h2 class="title is-2" id="citation">Citation</h2>
   </div>
 </section>
 
@@ -502,6 +542,34 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+  var burger = document.querySelector(".navbar-burger");
+  var menu = document.querySelector(".navbar-menu");
+  if (burger && menu) {
+    burger.addEventListener("click", function() {
+      burger.classList.toggle("is-active");
+      menu.classList.toggle("is-active");
+      burger.setAttribute("aria-expanded", menu.classList.contains("is-active") ? "true" : "false");
+    });
+  }
+  // walkthrough: reveal the answer, then show stage 2
+  var box = document.getElementById("wt-options");
+  if (box) {
+    box.addEventListener("click", function(ev) {
+      var btn = ev.target.closest("[data-ok]");
+      if (!btn || box.classList.contains("wt-revealed")) { return; }
+      box.classList.add("wt-revealed");
+      box.querySelectorAll("[data-ok]").forEach(function(b) {
+        b.classList.add(b.getAttribute("data-ok") === "1" ? "is-correct" : "is-wrong");
+      });
+      var right = btn.getAttribute("data-ok") === "1";
+      var verdict = document.getElementById("wt-verdict");
+      verdict.textContent = right
+        ? "Correct: C, a lukisan pengantin, the wedding painting. The item now moves to stage 2."
+        : "You picked " + btn.getAttribute("data-letter") + "; the answer is C, a lukisan pengantin, the wedding painting. In the benchmark a wrong pick ends the item, since stage 2 runs only after a correct stage 1. Shown here anyway.";
+      verdict.className = "wt-verdict " + (right ? "is-right" : "is-wrong");
+      document.getElementById("wt-stage2").hidden = false;
+    });
+  }
   if (typeof scb_leaderboard === "undefined") { return; }
   var rows = scb_leaderboard.slice().sort(function(a, b) { return b.acc - a.acc; });
   var medals = ["\uD83E\uDD47", "\uD83E\uDD48", "\uD83E\uDD49"];

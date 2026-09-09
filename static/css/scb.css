@@ -1,0 +1,84 @@
+/* SCB-specific styles, layered on the shared Nerfies/MathVista template. */
+:root {
+  --scb-navy: #24427c;
+  --scb-green: #2e7d4f;
+  --scb-red: #b3261e;
+  --scb-line: #dbdfe6;
+  --scb-soft: #f4f6fa;
+}
+
+/* two-stage walkthrough */
+.walkthrough {
+  border: 1px solid var(--scb-line);
+  border-radius: 10px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  background: #fff;
+}
+.wt-stage {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--scb-navy);
+  margin-bottom: 0.6rem;
+}
+.wt-question {
+  border: 1px solid var(--scb-line);
+  border-radius: 8px;
+  background: var(--scb-soft);
+  padding: 0.8rem 1rem;
+  margin: 0 auto 0.9rem;
+  max-width: 720px;
+  text-align: center;
+  font-weight: 600;
+}
+.wt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+@media (max-width: 560px) { .wt-grid { grid-template-columns: 1fr; } }
+.wt-tile {
+  border: 1.5px solid var(--scb-line);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  transition: border-color 120ms ease;
+}
+.wt-tile:hover { border-color: var(--scb-navy); }
+.wt-tile .tile-label {
+  display: block;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.92rem;
+  border-bottom: 1px solid var(--scb-line);
+  background: var(--scb-soft);
+}
+.wt-tile .tile-media { display: block; aspect-ratio: 4 / 3; background: #eef0f4; }
+.wt-tile .tile-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.wt-revealed .wt-tile { cursor: default; }
+.wt-revealed .wt-tile.is-correct { border-color: var(--scb-green); }
+.wt-revealed .wt-tile.is-correct .tile-label { background: #eef7f1; font-weight: 700; }
+.wt-revealed .wt-tile.is-wrong { opacity: 0.5; }
+.wt-hint { text-align: center; font-size: 0.85rem; color: #6a6f7a; margin-top: 0.75rem; }
+
+.wt-stage2 { border-top: 1px solid var(--scb-line); margin-top: 1.4rem; padding-top: 1.2rem; }
+.wt-verdict { text-align: center; margin-bottom: 0.9rem; }
+.wt-verdict.is-right { color: var(--scb-green); font-weight: 600; }
+.wt-verdict.is-wrong { color: var(--scb-red); }
+.wt-mask-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+@media (max-width: 560px) { .wt-mask-row { grid-template-columns: 1fr; } }
+.wt-mask-row figure { margin: 0; }
+.wt-mask-row img { display: block; width: 100%; border-radius: 6px; border: 1px solid var(--scb-line); }
+.wt-mask-row figcaption { font-size: 0.85rem; color: #4a4f58; margin-top: 0.45rem; text-align: center; }
+.wt-source-note { font-size: 0.8rem; color: #6a6f7a; text-align: center; margin-top: 0.9rem; }
